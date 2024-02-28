@@ -35,7 +35,7 @@ namespace pierwszy
         }
         public void Read()
         {
-            Console.WriteLine("Podaj limit w konsoli!");
+            Console.WriteLine("Podaj limit licznika w konsoli!");
             upperbound = Convert.ToInt32(Console.ReadLine());
         }
 
