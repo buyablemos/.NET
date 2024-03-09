@@ -14,13 +14,10 @@ namespace Konsolowa
 {
     internal class Problem
     {
-        int n;
-        int seed;
         string dane="";
 
         List<Item> items = new List<Item>();
         List<Item> added = new List<Item>();
-
 
         public Problem(int n, int seed)
         {
@@ -61,7 +58,7 @@ namespace Konsolowa
 
             if (if_sorted == true)
             {
-                sorted = items.OrderByDescending(x => x.getstosunek()).ToList();
+                sorted = items.OrderByDescending(x => x.Stosunek).ToList();
             }
 
 
@@ -71,7 +68,7 @@ namespace Konsolowa
             while (i < sorted.Count)
             {
 
-                if (this.policz_wage() + sorted[i].getweight() <= capacity)
+                if (this.policz_wage() + sorted[i].Weight <= capacity)
                 {
                     added.Add(sorted[i]);
                 }
@@ -97,7 +94,7 @@ namespace Konsolowa
             foreach (var item in added)
             {
                 
-                    aktualna = aktualna + item.getweight();
+                    aktualna = aktualna + item.Weight;
                 
             }
             return aktualna;
@@ -114,12 +111,12 @@ namespace Konsolowa
             foreach (var item in added)
             {
 
-                aktualna = aktualna + item.getvalue();
+                aktualna = aktualna + item.Value;
 
             }
             return aktualna;
         }
 
-        public void setitems(List<Item> newitems) { items = newitems; }
+        public List<Item> Items { set=> items = value; }
     }
 }

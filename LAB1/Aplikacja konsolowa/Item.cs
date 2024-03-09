@@ -20,11 +20,11 @@ namespace Konsolowa
             this.stosunek = (float) value/weight;
             this.iterator = iterator;
         }
+        //setery zakomentowane - hermetyzacja danych w strukturze
+        public int Value { get=>value; /*set=>this.value=value;*/ }
+        public int Weight {get=>weight;/* set=>this.weight=value;*/ }
+        public float Stosunek {get => stosunek; /*set => this.stosunek = value;*/}
 
-        public int getvalue() { return value; }
-        public int getweight() { return weight; }
-        public float getstosunek() { return stosunek; }
-
-        public int getiterator() { return iterator; }
+        public int Iterator { get => iterator; /*set => iterator = value;*/ }
     }
 }

@@ -24,9 +24,9 @@ namespace Konsolowa
             this.dane = dane;
         }
 
-        public  List<Item> getdodane() { return dodane;}
-        public  int getsum_weight() { return sum_weight; }
-        public  int getsum_value() { return sum_value; }
+        public List<Item> Dodane { get=> dodane;}
+        public  int Sum_weight { get => sum_weight; }
+        public  int Sum_value { get => sum_value; }
 
         public override string ToString()
         {   
@@ -42,7 +42,7 @@ namespace Konsolowa
             foreach (var item in dodane)
             {
                
-                    wyjscie += item.getweight() + " ";
+                    wyjscie += item.Weight + " ";
                 
             }
 
@@ -50,7 +50,7 @@ namespace Konsolowa
             foreach (var item in dodane)
             {
                 
-                    wyjscie += item.getvalue() + " ";
+                    wyjscie += item.Value + " ";
                 
             }
 
@@ -58,7 +58,7 @@ namespace Konsolowa
             foreach (var item in dodane)
             {
 
-                wyjscie += item.getiterator() + " ";
+                wyjscie += item.Iterator + " ";
 
             }
 

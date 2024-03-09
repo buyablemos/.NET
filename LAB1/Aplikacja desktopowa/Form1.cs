@@ -104,8 +104,63 @@ namespace Aplikacja_desktopowa
         }
 
         private void textbox_n_TextChanged(object sender, EventArgs e)
-        {
 
+        {
+            if (textBox_n.Text != "") {
+                int wyjscie;
+                if (int.TryParse(textBox_n.Text, out wyjscie))
+                {
+                    textBox_n.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    textBox_n.BackColor = Color.LightCoral;
+                }
+            }
+            else
+            {
+                textBox_n.BackColor = Color.White;
+            }
+        }
+        private void textbox_seed_TextChanged(object sender, EventArgs e)
+
+        {
+            if (textBox_seed.Text != "")
+            {
+                int wyjscie;
+                if (int.TryParse(textBox_seed.Text, out wyjscie))
+                {
+                    textBox_seed.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    textBox_seed.BackColor = Color.LightCoral;
+                }
+            }
+            else
+            {
+                textBox_seed.BackColor = Color.White;
+            }
+        }
+        private void textbox_capacity_TextChanged(object sender, EventArgs e)
+
+        {
+            if (textBox_capacity.Text != "")
+            {
+                int wyjscie;
+                if (int.TryParse(textBox_capacity.Text, out wyjscie))
+                {
+                    textBox_capacity.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    textBox_capacity.BackColor = Color.LightCoral;
+                }
+            }
+            else
+            {
+                textBox_capacity.BackColor = Color.White;
+            }
         }
     }
 }

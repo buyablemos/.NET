@@ -46,18 +46,21 @@
             // 
             // textBox_n
             // 
+            textBox_n.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 238);
             textBox_n.Location = new Point(12, 63);
             textBox_n.Name = "textBox_n";
-            textBox_n.Size = new Size(125, 27);
+            textBox_n.Size = new Size(125, 38);
             textBox_n.TabIndex = 0;
             textBox_n.TextChanged += textbox_n_TextChanged;
             // 
             // textBox_seed
             // 
+            textBox_seed.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 238);
             textBox_seed.Location = new Point(12, 124);
             textBox_seed.Name = "textBox_seed";
-            textBox_seed.Size = new Size(125, 27);
+            textBox_seed.Size = new Size(125, 38);
             textBox_seed.TabIndex = 1;
+            textBox_seed.TextChanged += textbox_seed_TextChanged;
             // 
             // button
             // 
@@ -83,10 +86,12 @@
             // 
             // textBox_capacity
             // 
-            textBox_capacity.Location = new Point(12, 183);
+            textBox_capacity.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 238);
+            textBox_capacity.Location = new Point(12, 190);
             textBox_capacity.Name = "textBox_capacity";
-            textBox_capacity.Size = new Size(125, 27);
+            textBox_capacity.Size = new Size(125, 38);
             textBox_capacity.TabIndex = 4;
+            textBox_capacity.TextChanged += textbox_capacity_TextChanged;
             // 
             // progressBar
             // 
@@ -117,7 +122,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(25, 160);
+            label3.Location = new Point(25, 165);
             label3.Name = "label3";
             label3.Size = new Size(247, 20);
             label3.TabIndex = 9;
