@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testy jednostkowe", "testy_jednostkowe\Testy jednostkowe.csproj", "{2C23BB42-512E-48AD-A415-979AE235E5BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestyJednostkowe", "testy_jednostkowe\TestyJednostkowe.csproj", "{2C23BB42-512E-48AD-A415-979AE235E5BA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aplikacja desktopowa", "Aplikacja desktopowa\Aplikacja desktopowa.csproj", "{53060BE7-6BDA-402B-86E2-1F954D0BE71B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AplikacjaDesktopowa", "Aplikacja desktopowa\AplikacjaDesktopowa.csproj", "{53060BE7-6BDA-402B-86E2-1F954D0BE71B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aplikacja konsolowa", "Aplikacja konsolowa\Aplikacja konsolowa.csproj", "{F8F6E680-8063-44CD-A3E7-37605C27E891}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AplikacjaKonsolowa", "Aplikacja konsolowa\AplikacjaKonsolowa.csproj", "{F8F6E680-8063-44CD-A3E7-37605C27E891}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

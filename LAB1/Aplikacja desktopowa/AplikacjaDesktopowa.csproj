@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Aplikacja konsolowa\Aplikacja konsolowa.csproj" />
+    <ProjectReference Include="..\Aplikacja konsolowa\AplikacjaKonsolowa.csproj" />
   </ItemGroup>
 
   <ItemGroup>

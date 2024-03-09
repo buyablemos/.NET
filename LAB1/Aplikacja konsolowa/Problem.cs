@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.ComponentModel.Design;
 
-[assembly: InternalsVisibleTo("Testy jednostkowe")]
-[assembly: InternalsVisibleTo("Aplikacja desktopowa")]
+[assembly: InternalsVisibleTo("TestyJednostkowe")]
+[assembly: InternalsVisibleTo("AplikacjaDesktopowa")]
 
 namespace Konsolowa
 {
