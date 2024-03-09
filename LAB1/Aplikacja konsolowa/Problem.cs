@@ -21,7 +21,7 @@ namespace Konsolowa
 
         public Problem(int n, int seed)
         {
-            Random random = new Random();
+            Random random = new Random(seed);
             
 
 

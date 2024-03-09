@@ -5,7 +5,7 @@ namespace Konsolowa
     internal class Program
     {
         static void Main(string[] args)
-        {   
+        {
             
             Result wynik;
 
@@ -58,6 +58,7 @@ namespace Konsolowa
             Problem plecak = new Problem(n, seed);
             wynik=plecak.Solve(capacity,true);
             Console.WriteLine(wynik.ToString());
+
 
         }
     }
