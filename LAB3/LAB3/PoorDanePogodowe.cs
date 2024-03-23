@@ -6,8 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-
-[assembly: InternalsVisibleTo("Program")]
+[assembly: InternalsVisibleTo("GUI")]
 
 
 namespace LAB3
@@ -36,7 +35,7 @@ namespace LAB3
                 $"Temperatura minimalna: {this.temp_min} C\n" +
                 $"Temperatura maksymalna: {this.temp_max} C\n" +
                 $"Długość geograficzna: {this.lon}\n" +
-                $"Szerokość geograficzna: {this.lat}";
+                $"Szerokość geograficzna: {this.lat}\n";
 
             return output;
         }

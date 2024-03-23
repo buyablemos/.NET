@@ -2,38 +2,93 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 
 namespace LAB3
 {
-    internal class Pogody : DbContext
+    internal class Pogoda : DbContext
     {
-        public DbSet<PoorDanePogodowe> Baza { get; set; }
+        public  DbSet<PoorDanePogodowe> BazaPogodowa { get; set; }
 
-        public Pogody()
+        public Pogoda()
         {
             Database.EnsureCreated();
+           
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Data Source=Pogody.db");
-        }
-       
-            protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            
+            string pathToDatabase = @"C:\Users\Dawid\source\repos\.NET\LAB3\Pogoda.db";
+            optionsBuilder.UseSqlite($"DataSource={pathToDatabase}");
         }
 
-    
-
-    public void WyczyscBazeDanych()
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            Baza.RemoveRange(Baza);
+
+        }
+
+
+
+        public void WyczyscBazeDanych()
+        {
+            BazaPogodowa.RemoveRange(BazaPogodowa);
             SaveChanges();
 
         }
+
+        override public string ToString()
+        {
+            string output = "";
+            foreach (var item in this.BazaPogodowa)
+            {
+                output+=item.ToString();
+            }
+            return output;
+
+        }
+        public List<PoorDanePogodowe> SortByTempDesc()
+        {
+            List<PoorDanePogodowe> sorted = BazaPogodowa.OrderByDescending(t => t.temp).ToList();
+            return sorted;
+        }
+        public List<PoorDanePogodowe> SortByTempAsc()
+        {
+            List<PoorDanePogodowe> sortedTemperatures = BazaPogodowa.OrderBy(t => t.temp).ToList();
+            return sortedTemperatures;
+        }
+        public List<PoorDanePogodowe> FiltrByTempLower(float threshold)
+        {
+            List<PoorDanePogodowe> sortedTemperatures = BazaPogodowa.Where(t=>t.temp<=threshold).ToList();
+            return sortedTemperatures;
+        }
+        public List<PoorDanePogodowe> FiltrByTempHigher(float threshold)
+        {
+            List<PoorDanePogodowe> sortedTemperatures = BazaPogodowa.Where(t => t.temp >= threshold).ToList();
+            return sortedTemperatures;
+        }
+        public List<PoorDanePogodowe> FiltrByTempLower_and_SortByTempAsc(float threshold)
+        {
+            List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp <= threshold).OrderBy(t => t.temp)).ToList();
+            return sortedTemperatures;
+        }
+        public List<PoorDanePogodowe> FiltrByTempLower_and_SortByTempDesc(float threshold)
+        {
+            List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp <= threshold).OrderByDescending(t => t.temp)).ToList();
+            return sortedTemperatures;
+        }
+        public List<PoorDanePogodowe> FiltrByTempHigher_and_SortByTempAsc(float threshold)
+        {
+            List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp >= threshold).OrderBy(t => t.temp)).ToList();
+            return sortedTemperatures;
+        }
+        public List<PoorDanePogodowe> FiltrByTempHigher_and_SortByTempDesc(float threshold)
+        {
+            List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp >= threshold).OrderByDescending(t => t.temp)).ToList();
+            return sortedTemperatures;
+        }
+
     }
 }

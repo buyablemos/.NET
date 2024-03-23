@@ -8,8 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-[assembly: InternalsVisibleTo("Program")]
-
+[assembly: InternalsVisibleTo("GUI")]
 
 namespace LAB3
 {
