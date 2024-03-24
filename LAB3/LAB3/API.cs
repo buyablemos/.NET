@@ -101,7 +101,7 @@ namespace LAB3
                     context.BazaPogodowa.Add(tmp); // Dodanie ostatniego obiektu DanePogodowe z listy dane_lista do bazy danych
                     context.SaveChanges();
                     output += "Nowy obiekt został dodany do bazy danych.\n";
-                    output += dane_lista.Last().ToString();
+                    output += tmp.ToString();
                 }
                 else
                 {

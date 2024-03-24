@@ -49,45 +49,109 @@ namespace LAB3
             return output;
 
         }
-        public List<PoorDanePogodowe> SortByTempDesc()
+        public List<PoorDanePogodowe> SortByTempDesc(bool DateFilter = false, DateTime dateTimeFilter = new DateTime())
         {
-            List<PoorDanePogodowe> sorted = BazaPogodowa.OrderByDescending(t => t.temp).ToList();
-            return sorted;
+            if (DateFilter == false)
+            {
+                List<PoorDanePogodowe> sorted = BazaPogodowa.OrderByDescending(t => t.temp).ToList();
+                return sorted;
+            }
+            else
+            {
+                List<PoorDanePogodowe> sorted = BazaPogodowa.OrderByDescending(t => t.temp).Where(t =>t.aktualnaDataCzas.Date==dateTimeFilter.Date).ToList();
+                return sorted;
+            }
+ 
         }
-        public List<PoorDanePogodowe> SortByTempAsc()
+        public List<PoorDanePogodowe> SortByTempAsc(bool DateFilter = false, DateTime dateTimeFilter = new DateTime())
         {
-            List<PoorDanePogodowe> sortedTemperatures = BazaPogodowa.OrderBy(t => t.temp).ToList();
-            return sortedTemperatures;
+            if (DateFilter == false)
+            {
+                List<PoorDanePogodowe> sortedTemperatures = BazaPogodowa.OrderBy(t => t.temp).ToList();
+                return sortedTemperatures;
+            }
+            else
+            {
+                List<PoorDanePogodowe> sortedTemperatures = BazaPogodowa.OrderBy(t => t.temp).Where(t => t.aktualnaDataCzas.Date == dateTimeFilter.Date).ToList();
+                return sortedTemperatures;
+            }
         }
-        public List<PoorDanePogodowe> FiltrByTempLower(float threshold)
+        public List<PoorDanePogodowe> FiltrByTempLower(float threshold, bool DateFilter = false, DateTime dateTimeFilter = new DateTime())
         {
-            List<PoorDanePogodowe> sortedTemperatures = BazaPogodowa.Where(t=>t.temp<=threshold).ToList();
-            return sortedTemperatures;
+            if (DateFilter == false)
+            {
+                List<PoorDanePogodowe> sortedTemperatures = BazaPogodowa.Where(t => t.temp <= threshold).ToList();
+                return sortedTemperatures;
+            }
+            else
+            {
+                List<PoorDanePogodowe> sortedTemperatures = BazaPogodowa.Where(t => t.temp <= threshold).Where(t => t.aktualnaDataCzas.Date == dateTimeFilter.Date).ToList();
+                return sortedTemperatures;
+            }
         }
-        public List<PoorDanePogodowe> FiltrByTempHigher(float threshold)
+        public List<PoorDanePogodowe> FiltrByTempHigher(float threshold,bool DateFilter = false, DateTime dateTimeFilter = new DateTime())
         {
-            List<PoorDanePogodowe> sortedTemperatures = BazaPogodowa.Where(t => t.temp >= threshold).ToList();
-            return sortedTemperatures;
+            if (DateFilter == false)
+            {
+                List<PoorDanePogodowe> sortedTemperatures = BazaPogodowa.Where(t => t.temp >= threshold).ToList();
+                return sortedTemperatures;
+            }
+            else
+            {
+                List<PoorDanePogodowe> sortedTemperatures = BazaPogodowa.Where(t => t.temp >= threshold).Where(t => t.aktualnaDataCzas.Date == dateTimeFilter.Date).ToList();
+                return sortedTemperatures;
+            }
         }
-        public List<PoorDanePogodowe> FiltrByTempLower_and_SortByTempAsc(float threshold)
-        {
-            List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp <= threshold).OrderBy(t => t.temp)).ToList();
-            return sortedTemperatures;
+        public List<PoorDanePogodowe> FiltrByTempLower_and_SortByTempAsc(float threshold, bool DateFilter = false, DateTime dateTimeFilter = new DateTime())
+        {   if (DateFilter == false)
+            {
+                List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp <= threshold).OrderBy(t => t.temp)).ToList();
+                return sortedTemperatures;
+            }
+            else
+            {
+                List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp <= threshold).OrderBy(t => t.temp)).Where(t => t.aktualnaDataCzas.Date == dateTimeFilter.Date).ToList();
+                return sortedTemperatures;
+            }
         }
-        public List<PoorDanePogodowe> FiltrByTempLower_and_SortByTempDesc(float threshold)
+        public List<PoorDanePogodowe> FiltrByTempLower_and_SortByTempDesc(float threshold, bool DateFilter = false, DateTime dateTimeFilter = new DateTime())
         {
-            List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp <= threshold).OrderByDescending(t => t.temp)).ToList();
-            return sortedTemperatures;
+            if (DateFilter == false)
+            {
+                List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp <= threshold).OrderByDescending(t => t.temp)).ToList();
+                return sortedTemperatures;
+            }
+            else
+            {
+                List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp <= threshold).OrderByDescending(t => t.temp)).Where(t => t.aktualnaDataCzas.Date == dateTimeFilter.Date).ToList();
+                return sortedTemperatures;
+            }
         }
-        public List<PoorDanePogodowe> FiltrByTempHigher_and_SortByTempAsc(float threshold)
+        public List<PoorDanePogodowe> FiltrByTempHigher_and_SortByTempAsc(float threshold, bool DateFilter = false, DateTime dateTimeFilter = new DateTime())
         {
-            List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp >= threshold).OrderBy(t => t.temp)).ToList();
-            return sortedTemperatures;
+            if (DateFilter == false)
+            {
+                List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp >= threshold).OrderBy(t => t.temp)).ToList();
+                return sortedTemperatures;
+            }
+            else
+            {
+                List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp >= threshold).OrderBy(t => t.temp)).Where(t => t.aktualnaDataCzas.Date == dateTimeFilter.Date).ToList();
+                return sortedTemperatures;
+            }
         }
-        public List<PoorDanePogodowe> FiltrByTempHigher_and_SortByTempDesc(float threshold)
+        public List<PoorDanePogodowe> FiltrByTempHigher_and_SortByTempDesc(float threshold, bool DateFilter = false, DateTime dateTimeFilter = new DateTime())
         {
-            List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp >= threshold).OrderByDescending(t => t.temp)).ToList();
-            return sortedTemperatures;
+            if (DateFilter == false)
+            {
+                List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp >= threshold).OrderByDescending(t => t.temp)).ToList();
+                return sortedTemperatures;
+            }
+            else
+            {
+                List<PoorDanePogodowe> sortedTemperatures = (BazaPogodowa.Where(t => t.temp >= threshold).OrderByDescending(t => t.temp)).Where(t => t.aktualnaDataCzas.Date == dateTimeFilter.Date).ToList();
+                return sortedTemperatures;
+            }
         }
 
     }

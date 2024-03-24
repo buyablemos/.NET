@@ -47,9 +47,14 @@
             radioButton_sort_mal = new RadioButton();
             button4 = new Button();
             process1 = new System.Diagnostics.Process();
+            dateTimePicker1 = new DateTimePicker();
+            label3 = new Label();
+            checkBox1 = new CheckBox();
+            pictureBox1 = new PictureBox();
             groupBox1.SuspendLayout();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // textBoxMiasto
@@ -250,11 +255,56 @@
             process1.StartInfo.UserName = "";
             process1.SynchronizingObject = this;
             // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(47, 285);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(289, 27);
+            dateTimePicker1.TabIndex = 8;
+            dateTimePicker1.Tag = "";
+            dateTimePicker1.Visible = false;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(41, 262);
+            label3.Name = "label3";
+            label3.Size = new Size(338, 20);
+            label3.TabIndex = 9;
+            label3.Text = "Wprowadź datę, z której będą wyświetlane wyniki";
+            label3.Visible = false;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(47, 238);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(166, 24);
+            checkBox1.TabIndex = 10;
+            checkBox1.Text = "Filtrowanie po dacie";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.ikonki;
+            pictureBox1.Location = new Point(529, 238);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(484, 242);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 11;
+            pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(1513, 516);
+            Controls.Add(pictureBox1);
+            Controls.Add(checkBox1);
+            Controls.Add(label3);
+            Controls.Add(dateTimePicker1);
             Controls.Add(button4);
             Controls.Add(groupBox1);
             Controls.Add(button1);
@@ -270,6 +320,7 @@
             panel2.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -295,5 +346,9 @@
         private RadioButton Brak;
         private RadioButton radioButton1;
         private System.Diagnostics.Process process1;
+        private DateTimePicker dateTimePicker1;
+        private Label label3;
+        private CheckBox checkBox1;
+        private PictureBox pictureBox1;
     }
 }

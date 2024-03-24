@@ -8,6 +8,9 @@ namespace GUI
     {
 
         APITest api = new APITest();
+        Pogoda context = new Pogoda();
+        bool DateFilter = false;
+        
 
         public Form1()
         {
@@ -46,10 +49,12 @@ namespace GUI
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Pogoda context = new Pogoda();
+     
             richTextBox1.Text = "";
             List<PoorDanePogodowe> tmp = new List<PoorDanePogodowe>();
             float prog;
+
+            DateTime dateTimeFilter= dateTimePicker1.Value;
 
             if (textBoxProg.Text != "" && float.TryParse(textBoxProg.Text, out prog) && (radioButton_fitr_gorn.Checked == true || radioButton_filtr_dol.Checked == true))
             {
@@ -58,11 +63,11 @@ namespace GUI
                 {
                     if (radioButton_filtr_dol.Checked == true)
                     {
-                        tmp = context.FiltrByTempHigher_and_SortByTempAsc(prog);
+                        tmp = context.FiltrByTempHigher_and_SortByTempAsc(prog,DateFilter,dateTimeFilter);
                     }
                     else if (radioButton_fitr_gorn.Checked == true)
                     {
-                        tmp = context.FiltrByTempLower_and_SortByTempAsc(prog);
+                        tmp = context.FiltrByTempLower_and_SortByTempAsc(prog, DateFilter, dateTimeFilter);
                     }
 
                 }
@@ -70,11 +75,11 @@ namespace GUI
                 {
                     if (radioButton_filtr_dol.Checked == true)
                     {
-                        tmp = context.FiltrByTempHigher_and_SortByTempDesc(prog);
+                        tmp = context.FiltrByTempHigher_and_SortByTempDesc(prog, DateFilter, dateTimeFilter);
                     }
                     else if (radioButton_fitr_gorn.Checked == true)
                     {
-                        tmp = context.FiltrByTempLower_and_SortByTempDesc(prog);
+                        tmp = context.FiltrByTempLower_and_SortByTempDesc(prog, DateFilter, dateTimeFilter);
                     }
 
                 }
@@ -82,43 +87,46 @@ namespace GUI
                 else if (radioButton_filtr_dol.Checked == true && radioButton_sort_ros.Checked == false && radioButton_sort_mal.Checked == false)
                 {
 
-                    tmp = context.FiltrByTempHigher(prog);
+                    tmp = context.FiltrByTempHigher(prog, DateFilter, dateTimeFilter);
                 }
                 else if (radioButton_fitr_gorn.Checked == true && radioButton_sort_ros.Checked == false && radioButton_sort_mal.Checked == false)
                 {
-                    tmp = context.FiltrByTempLower(prog);
+                    tmp = context.FiltrByTempLower(prog, DateFilter, dateTimeFilter);
                 }
 
 
             }
             else
             {
+               // && radioButton_fitr_gorn.Checked == false && radioButton_filtr_dol.Checked == false
 
-
-                if (radioButton_sort_ros.Checked == true && radioButton_fitr_gorn.Checked == false && radioButton_filtr_dol.Checked == false)
+                if (radioButton_sort_ros.Checked == true)
                 {
 
-                    tmp = context.SortByTempAsc();
+                    tmp = context.SortByTempAsc(DateFilter, dateTimeFilter);
 
                 }
-                else if (radioButton_sort_mal.Checked == true && radioButton_fitr_gorn.Checked == false && radioButton_filtr_dol.Checked == false)
+                else if (radioButton_sort_mal.Checked == true)
                 {
-                    tmp = context.SortByTempDesc();
+                    tmp = context.SortByTempDesc(DateFilter, dateTimeFilter);
                 }
                 else
                 {
-                    tmp = context.BazaPogodowa.ToList();
+                    if (!DateFilter)
+                    {
+                        tmp = context.BazaPogodowa.ToList();
+                    }
+                    else
+                    {
+                        tmp = context.BazaPogodowa.Where(t => t.aktualnaDataCzas.Date == dateTimeFilter.Date).ToList();
+                    }
                 }
-            }
-
-            foreach (var item in tmp)
-            {
-                
-
-            }
+          }
+            
 
 
-                richTextBox1.Text += "Oto wszystkie elementy w bazie:\n";
+
+            richTextBox1.Text += "Oto wszystkie elementy w bazie:\n";
 
             foreach (var item in tmp)
             {
@@ -135,7 +143,7 @@ namespace GUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Pogoda context = new Pogoda();
+
             context.WyczyscBazeDanych();
             richTextBox1.Text += "WYCZYSZCZONO POMYSLNIE CALA BAZE DANYCH\n";
         }
@@ -183,6 +191,21 @@ namespace GUI
             richTextBox1.Text = "";
         }
 
-        
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                label3.Visible = true;
+                dateTimePicker1.Visible = true;
+                DateFilter = true;
+               
+            }
+            else
+            {
+                DateFilter = false;      
+                label3.Visible = false;
+                dateTimePicker1.Visible = false;
+            }
+        }
     }
 }

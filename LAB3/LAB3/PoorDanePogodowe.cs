@@ -25,6 +25,12 @@ namespace LAB3
         public float lon { get; set; }
         public float lat { get; set; }
 
+        public DateTime aktualnaDataCzas { get; set; }
+
+        public PoorDanePogodowe() {
+             aktualnaDataCzas= DateTime.Now;
+        }
+
         override public string ToString()
         {
             string output =
@@ -35,7 +41,8 @@ namespace LAB3
                 $"Temperatura minimalna: {this.temp_min} C\n" +
                 $"Temperatura maksymalna: {this.temp_max} C\n" +
                 $"Długość geograficzna: {this.lon}\n" +
-                $"Szerokość geograficzna: {this.lat}\n";
+                $"Szerokość geograficzna: {this.lat}\n"+
+                $"Dane pochodzą z dnia: {this.aktualnaDataCzas}\n";
 
             return output;
         }
