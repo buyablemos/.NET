@@ -50,7 +50,7 @@ namespace LAB3
                         Console.WriteLine(context.ToString());
                         break;
                         default:
-                            Console.WriteLine("Nieprawidłowy wybór. Wybierz opcję od 1 do 3.");
+                            Console.WriteLine("Nieprawidłowy wybór. Wybierz opcję od 1 do 4.");
                             break;
                     }
 

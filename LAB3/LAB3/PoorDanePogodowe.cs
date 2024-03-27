@@ -42,7 +42,8 @@ namespace LAB3
                 $"Temperatura maksymalna: {this.temp_max} C\n" +
                 $"Długość geograficzna: {this.lon}\n" +
                 $"Szerokość geograficzna: {this.lat}\n"+
-                $"Dane pochodzą z dnia: {this.aktualnaDataCzas}\n";
+                $"Dane pochodzą z dnia: {this.aktualnaDataCzas}\n"+
+                $"_________________________________________________\n";
 
             return output;
         }

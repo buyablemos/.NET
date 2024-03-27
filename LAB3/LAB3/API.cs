@@ -51,54 +51,35 @@ namespace LAB3
                 city = FirstLetterToUpper(city);
                 PoorDanePogodowe existingItem = context.BazaPogodowa.FirstOrDefault(obiekt => obiekt.name == city);
 
-                if (existingItem == null)
-                {
-                GetData(city).Wait(); // Wywołanie metody GetData asynchronicznie
-               
+            if (existingItem == null)
+            {
+                GetData(city).Wait();
+
                 if (error == "")
                 {
                     PoorDanePogodowe tmp = new PoorDanePogodowe();
                     tmp.makePoor(last);
-                    context.BazaPogodowa.Add(tmp); // Dodanie ostatniego obiektu DanePogodowe z listy dane_lista do bazy danych
+                    context.BazaPogodowa.Add(tmp);
                     context.SaveChanges();
                     output += "Nowy obiekt został dodany do bazy danych.\n";
-                    output += dane_lista.Last().ToString();
+                    output += tmp.ToString();
                 }
                 else
                 {
                     output = error;
                     return output;
                 }
-                }
-                else
-                {
-                output += "Obiekt o podanej nazwie już istnieje w bazie danych.\n\nOto obiekt wyciągnięty z bazy danych:\n";
-                output+=existingItem.ToString();
-                }
-                return output;
-
             }
-            
-        public async Task HandlerDoApiGUI(string city)
-        {
-            
-
-            //string output = "";
-
-            var context = new Pogoda();
-
-            city = FirstLetterToUpper(city);
-            PoorDanePogodowe existingItem = context.BazaPogodowa.FirstOrDefault(obiekt => obiekt.name == city);
-
-            if (existingItem == null)
+            else if (existingItem.aktualnaDataCzas.Date != DateTime.Now.Date)
             {
-                await GetData(city); // Wywołanie metody GetData asynchronicznie
 
+
+                GetData(city).Wait();
                 if (error == "")
                 {
                     PoorDanePogodowe tmp = new PoorDanePogodowe();
                     tmp.makePoor(last);
-                    context.BazaPogodowa.Add(tmp); // Dodanie ostatniego obiektu DanePogodowe z listy dane_lista do bazy danych
+                    context.BazaPogodowa.Add(tmp);
                     context.SaveChanges();
                     output += "Nowy obiekt został dodany do bazy danych.\n";
                     output += tmp.ToString();
@@ -109,6 +90,48 @@ namespace LAB3
 
                 }
             }
+            else
+            {
+                output += "Obiekt o podanej nazwie już istnieje w bazie danych.\n\nOto obiekt wyciągnięty z bazy danych:\n";
+                output += existingItem.ToString();
+            }
+                return output;
+
+            }
+            
+        public async Task HandlerDoApiGUI(string city)
+        {
+
+
+            //string output = "";
+            bool cond = false;
+            var context = new Pogoda();
+
+            city = FirstLetterToUpper(city);
+            PoorDanePogodowe existingItem = context.BazaPogodowa.FirstOrDefault(obiekt => obiekt.name == city && obiekt.aktualnaDataCzas.Date == DateTime.Now.Date);
+
+
+
+            if (existingItem == null)
+            {
+                await GetData(city); // Wywołanie metody GetData asynchronicznie
+
+                if (error == "")
+                {
+                    PoorDanePogodowe tmp = new PoorDanePogodowe();
+                    tmp.makePoor(last);
+                    context.BazaPogodowa.Add(tmp); 
+                    context.SaveChanges();
+                    output += "Nowy obiekt został dodany do bazy danych.\n";
+                    output += tmp.ToString();
+                }
+                else
+                {
+                    output = error;
+
+                }
+            }
+            
             else
             {
                 output += "Obiekt o podanej nazwie już istnieje w bazie danych.\n\nOto obiekt wyciągnięty z bazy danych:\n";
