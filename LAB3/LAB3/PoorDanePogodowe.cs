@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace LAB3
 {
     internal class PoorDanePogodowe
-    {  
+    {
         
         public int Id { get; set; }
 
