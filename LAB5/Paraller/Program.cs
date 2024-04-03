@@ -59,16 +59,18 @@ namespace ParallerLAB5
             else if (n < dimension)
             {
                 int last = 0;
-                int batchSize = Math.Max(n, dimension / Environment.ProcessorCount);
+                int started = 0;
 
                 stopwatch.Start();
                 while (last < dimension)
                 {
-                    Parallel.For(last, Math.Min(last + batchSize, dimension), i =>
+                    Parallel.For(last, Math.Min(n+last,dimension), i =>
                     {
                         Oblicz(i, m1, m2);
+                        started++;
                     });
-                    last += batchSize;
+                    last += started;
+                    started= 0;
                 }
                 stopwatch.Stop();
             }
