@@ -78,7 +78,8 @@ namespace GUI
         }
 
         public void Przetworz(int it, Bitmap image)
-        {
+        {   
+
             switch (it)
             {
 

@@ -56,10 +56,10 @@ namespace LAB5
             }
             return result;
         }
-        public static int[,] operator * (Matrix m1, Matrix m2)
+        public static Matrix operator * (Matrix m1, Matrix m2)
         {
 
-            int[,] result = new int[m1.matrix.GetLength(0), m2.matrix.GetLength(1)];
+            Matrix result = new Matrix(m1.matrix.GetLength(0));
 
             for (int i = 0; i < m1.matrix.GetLength(0); i++)
             {
@@ -70,7 +70,7 @@ namespace LAB5
                     {
                         tmp += m1.matrix[i, k] * m2.matrix[k, j];
                     }
-                    result[i, j] = tmp;
+                    result.matrix[i, j] = tmp;
                 }
             }
 
