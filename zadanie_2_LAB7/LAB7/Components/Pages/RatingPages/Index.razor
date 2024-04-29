@@ -1,0 +1,36 @@
+﻿@page "/ratings"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject LAB7.Components.MoviesDB DB
+@using LAB7.Components
+
+<PageTitle>Ratings</PageTitle>
+
+<h1>Ratings</h1>
+
+<button type="button" class="btn btn-primary">
+    Create New
+</button>
+
+<h1></h1>
+
+<QuickGrid Class="table" Items="DB.DataRating">
+    <PropertyColumn Property="rating => rating.MovieId" />
+    <PropertyColumn Property="rating => TitleForMovieId(rating.MovieId)" Title="Movie" />
+    <PropertyColumn Property="rating => rating.Value" />
+    <PropertyColumn Property="rating => rating.User" />
+
+    <TemplateColumn Context="rating">
+        <a href="@($"ratings/edit?id={rating.Id}")">Edit</a> |
+        <a href="@($"ratings/details?id={rating.Id}")">Details</a> |
+        <a href="@($"ratings/delete?id={rating.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private string TitleForMovieId(int? movieId)
+    {
+        
+        var movie = DB.DataMovie.FirstOrDefault(m => m.Id == movieId);
+        return movie != null ? movie.Title : "Unknown";
+    }
+}

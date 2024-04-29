@@ -50,17 +50,17 @@ namespace LAB5
                 TimeSpan czas = stopwatch.Elapsed;
                 TimeSpan czas2 = stopwatch2.Elapsed;
 
-                /*
+                
                 Console.WriteLine("To macierz wynikowa:\n");
                 Console.WriteLine(wynik.ToString());
                 Console.WriteLine("To macierz wynikowa mnoznona konwencjonalnie:\n");
                 Console.WriteLine(konwencjonalne.ToString());
-                */
+                
 
 
                 Console.WriteLine("\nCzas wymnożenia macierzy: " + czas.TotalMilliseconds + " milisekund\n");
                 
-                Console.WriteLine("\nCzas wymnożenia macierzy konwencjonalnie: " + czas2.TotalMilliseconds + " milisekund\n");/
+                Console.WriteLine("\nCzas wymnożenia macierzy konwencjonalnie: " + czas2.TotalMilliseconds + " milisekund\n");
                 
                 stopwatch.Restart();
                 stopwatch2.Restart();
@@ -143,7 +143,6 @@ namespace LAB5
                             started++;
                         }
                     }
-
                     stopwatch.Start();
                     for (int i = 0; i < started; i++)
                     {
@@ -151,13 +150,16 @@ namespace LAB5
                     }
                     for (int i = 0; i < started; i++)
                     {
-
                         threads[i].Join();
                     }
+                    stopwatch.Stop();
+
+
                     last += started;
                     started = 0;
-                    stopwatch.Stop();
+                    
                 }
+                
             }
 
 

@@ -1,0 +1,138 @@
+﻿@page "/movies"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject LAB7.Components.MoviesDB DB
+@using LAB7.Components
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+
+
+<PageTitle>Movies Collection</PageTitle>
+
+<h1>Movies collection</h1>
+
+<button type="button" class="btn btn-primary">
+    Create New
+</button>
+
+<h1></h1>
+
+<button @onclick="SortMovies">Sort by Descending Rating</button>
+
+<button @onclick="SortMoviesAscending">Sort by Ascending Rating</button>
+
+<button @onclick="SortMoviesByID">Sort by Descending ID</button>
+
+<button @onclick="SortMoviesByIDAscending">Sort by Ascending ID</button>
+
+@if (movies == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <QuickGrid  Class
+    ="table" Items
+    ="@movies">
+        <PropertyColumn Property="@(movie => movie.Id)" />
+            <PropertyColumn Property="movie => movie.Title" />
+            <PropertyColumn Property="movie => GetDateOnly(movie)" Title="Release Date" />
+            <PropertyColumn Property="movie=>GetAverageRatingForMovie(movie.Id).ToString()" Title="Average Rating" />
+
+            <TemplateColumn Context="movie">
+                <a href="@($"movies/edit?id={movie.Id}")">Edit</a> |
+                <a href="@($"movies/details?id={movie.Id}")">Details</a> |
+                <a href="@($"movies/delete?id={movie.Id}")">Delete</a>
+            </TemplateColumn>
+        </QuickGrid>
+    }
+
+@code{
+    private IQueryable<Movie> movies;
+
+    public float? GetAverageRatingForMovie(int movieId)
+    {
+
+        var ratingsForMovie = DB.DataRating.Where(r => r.MovieId == movieId);
+
+
+        if (!ratingsForMovie.Any())
+        {
+            return null; 
+        }
+
+
+        float? averageRating = ratingsForMovie.Average(r => r.Value);
+
+
+        
+            return averageRating;
+        
+    }
+
+
+    public DateOnly? GetDateOnly(Movie movie)
+    {
+        if (movie.RelaseDate.HasValue)
+        {
+            return DateOnly.FromDateTime(movie.RelaseDate.Value);
+        }
+        else
+        {
+            return null; 
+        }
+    }
+
+    private void SortMovies()
+    {
+        movies = movies.OrderByDescending(m => GetAverageRatingForMovie(m.Id));
+    }
+    private void SortMoviesAscending()
+    {
+        movies = movies.OrderBy(m => GetAverageRatingForMovie(m.Id));
+    }
+
+    private void SortMoviesByID()
+    {
+        movies = movies.OrderByDescending(m => m.Id);
+    }
+
+    private void SortMoviesByIDAscending()
+    {
+        movies = movies.OrderBy(m => m.Id);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (movies == null)
+        {
+            movies = Enumerable.Empty<Movie>().AsQueryable();
+        }
+
+        var enumerator = DB.DataMovie.GetAsyncEnumerator();
+
+        try
+        {
+            while (await enumerator.MoveNextAsync()) 
+            {
+                var movie = enumerator.Current; 
+
+                
+                movies = movies.Union(new[] { new Movie
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Description = movie.Description,
+                photoURL = movie.photoURL,
+                RelaseDate = movie.RelaseDate
+            }});
+            }
+        }
+        finally
+        {
+            await enumerator.DisposeAsync();
+        }
+
+         
+    }
+
+}

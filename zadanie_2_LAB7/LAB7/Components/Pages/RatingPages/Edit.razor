@@ -1,0 +1,102 @@
+﻿@page "/Ratings/edit"
+@inject LAB7.Components.MoviesDB DB
+@using LAB7.Components
+@inject NavigationManager NavigationManager
+@using Microsoft.EntityFrameworkCore
+
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h4>Rating</h4>
+<hr />
+@if (Rating is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Rating" OnValidSubmit="UpdateRating" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <input type="hidden" name="Rating.Id" value="@Rating.Id" />
+                <div class="mb-3">
+                    <label for="movieid" class="form-label">MovieId:</label>
+                    <InputNumber id="movieid" @bind-Value="Rating.MovieId" class="form-control" />
+                    <ValidationMessage For="() => Rating.MovieId" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="value" class="form-label">Value:</label>
+                    <InputNumber id="value" @bind-Value="Rating.Value" class="form-control" />
+                    <ValidationMessage For="() => Rating.Value" class="text-danger" />
+                </div>
+
+               
+
+                <div class="mb-3">
+                    <label for="user" class="form-label">User:</label>
+                    <InputText id="user" @bind-Value="Rating.User" class="form-control" />
+                    <ValidationMessage For="() => Rating.User" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/ratings">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    public int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    public Rating? Rating { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Rating ??= await DB.DataRating.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (Rating is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see https://aka.ms/RazorPagesCRUD.
+    public async Task UpdateRating()
+    {
+        DB.Attach(Rating!).State = EntityState.Modified;
+
+        try
+        {
+            await DB.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!RatingExists(Rating!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/ratings");
+    }
+
+    bool RatingExists(int id)
+    {
+        return DB.DataRating.Any(e => e.Id == id);
+    }
+}
