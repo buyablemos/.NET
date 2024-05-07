@@ -2,34 +2,63 @@
 @using Microsoft.AspNetCore.Components.QuickGrid
 @inject LAB7.Components.MoviesDB DB
 @using LAB7.Components
+@rendermode InteractiveServer
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 <PageTitle>Ratings</PageTitle>
 
 <h1>Ratings</h1>
 
-<button type="button" class="btn btn-primary">
+
+
+<AuthorizeView>
+    <button type="button" class="btn btn-primary" onclick="window.location.href='/ratings/create'">
     Create New
 </button>
 
+</AuthorizeView>
+
+
 <h1></h1>
 
-<QuickGrid Class="table" Items="DB.DataRating">
+<QuickGrid Class="table" Items="@ratings">
     <PropertyColumn Property="rating => rating.MovieId" />
     <PropertyColumn Property="rating => TitleForMovieId(rating.MovieId)" Title="Movie" />
     <PropertyColumn Property="rating => rating.Value" />
     <PropertyColumn Property="rating => rating.User" />
 
     <TemplateColumn Context="rating">
-        <a href="@($"ratings/edit?id={rating.Id}")">Edit</a> |
-        <a href="@($"ratings/details?id={rating.Id}")">Details</a> |
-        <a href="@($"ratings/delete?id={rating.Id}")">Delete</a>
+        <AuthorizeView>
+            
+            @if (rating.User != null && @context.User?.Identity?.Name == rating.User)
+            {
+                <a href="@($"Ratings/edit?id={rating.Id}")">Edit</a> @(" | ")
+                <a href="@($"ratings/delete?id={rating.Id}")">Delete</a> @(" | ")
+            }
+        </AuthorizeView>
+        <a href="@($"ratings/details?id={rating.Id}")">Details</a>
     </TemplateColumn>
 </QuickGrid>
 
 @code {
+
+    private IQueryable<Rating> ratings;
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        ratings = DB.DataRating.AsQueryable();
+
+    }
+
     private string TitleForMovieId(int? movieId)
     {
         
+        if (movieId == null)
+        {
+            return "Unknown";
+        }
+
         var movie = DB.DataMovie.FirstOrDefault(m => m.Id == movieId);
         return movie != null ? movie.Title : "Unknown";
     }

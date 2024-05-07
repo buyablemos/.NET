@@ -57,6 +57,7 @@
 
     public async Task DeleteRating()
     {
+
         DB.DataRating.Remove(rating!);
         await DB.SaveChangesAsync();
         NavigationManager.NavigateTo("/ratings");

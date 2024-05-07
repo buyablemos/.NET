@@ -56,7 +56,8 @@
     }
 
     public async Task DeleteMovie()
-    {
+    {   
+        
         DB.DataMovie.Remove(movie!);
         await DB.SaveChangesAsync();
         NavigationManager.NavigateTo("/movies");

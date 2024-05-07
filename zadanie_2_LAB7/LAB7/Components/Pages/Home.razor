@@ -1,7 +1,23 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
 
-<h1>Hello world!</h1>
 
-Welcome to the application with a database of films and their ratings!
+<h1 class="animate__animated animate__fadeInUp">Welcome on our site!</h1>
+
+<div class="animate__animated animate__slideInRight">
+    <p> We are glad you came to us!</p>
+</div>
+
+<div class="animate__animated animate__slideInRight">
+    <p>Here you will find a lot of interesting information about films and their ratings and compare your opinion with other users!</p>
+</div>
+
+<AuthorizeView>
+    <div class="animate__animated animate__bounce">
+        <p>You are logged as: @context.User.Identity?.Name !</p>
+    </div>
+</AuthorizeView>
+
+
+
+

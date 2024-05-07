@@ -49,7 +49,7 @@
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task AddRating()
     {
-        Rating.User = HttpContextAccessor.HttpContext.User.Identity?.Name;
+        Rating.User = HttpContextAccessor.HttpContext?.User?.Identity?.Name;
         Rating.Date = new DateTime();
         Rating.Date = DateTime.Now;
         DB.DataRating.Add(Rating);

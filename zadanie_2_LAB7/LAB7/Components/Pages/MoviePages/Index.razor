@@ -10,9 +10,11 @@
 
 <h1>Movies collection</h1>
 
-<button type="button" class="btn btn-primary">
+<AuthorizeView>
+    <button type="button" class="btn btn-primary" onclick="window.location.href='/movies/create'">
     Create New
 </button>
+</AuthorizeView>
 
 <h1></h1>
 
@@ -33,26 +35,31 @@ else
     <QuickGrid  Class
     ="table" Items
     ="@movies">
-        <PropertyColumn Property="@(movie => movie.Id)" />
+        <PropertyColumn Property="movie => movie.Id" />
             <PropertyColumn Property="movie => movie.Title" />
             <PropertyColumn Property="movie => GetDateOnly(movie)" Title="Release Date" />
-            <PropertyColumn Property="movie=>GetAverageRatingForMovie(movie.Id).ToString()" Title="Average Rating" />
+            <PropertyColumn Property="movie => GetAverageRatingForMovie(movie.Id).ToString()" Title="Average Rating" />
 
             <TemplateColumn Context="movie">
+                <AuthorizeView>
                 <a href="@($"movies/edit?id={movie.Id}")">Edit</a> |
-                <a href="@($"movies/details?id={movie.Id}")">Details</a> |
-                <a href="@($"movies/delete?id={movie.Id}")">Delete</a>
+                <a href="@($"movies/delete?id={movie.Id}")">Delete</a> |
+                </AuthorizeView>
+                <a href="@($"movies/details?id={movie.Id}")">Details</a>
             </TemplateColumn>
         </QuickGrid>
     }
 
 @code{
-    private IQueryable<Movie> movies;
+    private IQueryable<Movie> movies = Enumerable.Empty<Movie>().AsQueryable();
+
 
     public float? GetAverageRatingForMovie(int movieId)
     {
 
-        var ratingsForMovie = DB.DataRating.Where(r => r.MovieId == movieId);
+        var ratingsForMovie = DB.DataRating.Where(r =>
+        r.MovieId == movieId);
+
 
 
         if (!ratingsForMovie.Any())
@@ -64,9 +71,9 @@ else
         float? averageRating = ratingsForMovie.Average(r => r.Value);
 
 
-        
-            return averageRating;
-        
+
+        return averageRating;
+
     }
 
 
@@ -103,11 +110,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        if (movies == null)
-        {
-            movies = Enumerable.Empty<Movie>().AsQueryable();
-        }
-
+        
         var enumerator = DB.DataMovie.GetAsyncEnumerator();
 
         try
@@ -116,7 +119,7 @@ else
             {
                 var movie = enumerator.Current; 
 
-                
+
                 movies = movies.Union(new[] { new Movie
             {
                 Id = movie.Id,
@@ -132,7 +135,9 @@ else
             await enumerator.DisposeAsync();
         }
 
-         
+
+       // movies = DB.DataMovie.AsQueryable();
+
     }
 
 }

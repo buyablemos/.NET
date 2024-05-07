@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/MovieRatingApp/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsDefaultConnection_3D5766AD79",
+      "secretStore": "AzureKeyVault",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/serverforratings/databases/WebAppMoviesRatings",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStringsDefaultConnection",
+      "dynamicId": null
+    },
+    "secrets1": {
+      "ignored": "true",
+      "type": "secrets",
+      "connectionId": "connectionURI",
+      "dynamicId": null
+    },
+    "secrets2": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/MovieRatingApp/providers/Microsoft.ServiceLinker/linkers/connectionURI_D74FFAB02D",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/RatingsAppVault",
+      "type": "secrets.keyVault",
+      "connectionId": "connectionURI"
+    }
+  }
+}

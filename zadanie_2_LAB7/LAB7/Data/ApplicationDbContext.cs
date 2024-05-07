@@ -11,5 +11,5 @@ namespace LAB7.Data
         }*/
 
     }
-    
+
 }
